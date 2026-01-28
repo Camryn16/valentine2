@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Be My Valentine?</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 2.5rem 3rem;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+      max-width: 420px;
+      width: 90%;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #ff4d6d;
+    }
+
+    p {
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+    }
+
+    button {
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .yes {
+      background: #ff4d6d;
+      color: white;
+    }
+
+    .no {
+      background: #ccc;
+      color: #333;
+    }
+
+    .result {
+      margin-top: 2rem;
+      font-size: 1.5rem;
+      display: none;
+    }
+
+    .happy {
+      color: #ff4d6d;
+    }
+
+    .sad {
+      color: #555;
+    }
+
+    .heart {
+      position: absolute;
+      font-size: 1.5rem;
+      animation: floatUp 3s linear forwards;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+      }
+      to {
+        transform: translateY(-100vh) scale(1.5);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>My Love, will you be my Valentine? ❤️</h1>
+    <p>I have something really important to ask you…</p>
+
+    <div class="buttons">
+      <button class="yes" onclick="sayYes()">Yes 💖</button>
+      <button class="no" id="noBtn" onclick="sayNo()">No 💔</button>
+    </div>
+
+    <div id="result" class="result"></div>
+    <p style="margin-top:1.5rem; font-size:0.9rem; color:#888;">— Your Angel 💕</p>
+  </div>
+
+  <script>
+    const noBtn = document.getElementById('noBtn');
+
+    noBtn.addEventListener('mouseover', moveNoButton);
+    noBtn.addEventListener('click', moveNoButton);
+
+    function moveNoButton() {
+      const x = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+      const y = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+      noBtn.style.position = 'fixed';
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    function sayYes() {
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.className = 'result happy';
+      result.innerHTML = 'YAY!!! 😍💘 You just made me the happiest person ever!';
+
+      // create floating hearts
+      for (let i = 0; i < 20; i++) {
+        createHeart();
+      }
+    }
+
+    function sayNo() {
+      const result = document.getElementById('result');
+      result.style.display = 'block';
+      result.className = 'result sad';
+      result.innerHTML = 'Oh no… 😢💔 I’ll be sad, but I still care about you.';
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.innerText = '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.bottom = '0px';
+      heart.style.animationDuration = 2 + Math.random() * 2 + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
